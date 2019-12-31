@@ -1,0 +1,22 @@
+#数据库
+spring:
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/shop?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+      username: root
+      password: root
+      initial-size: 1
+      min-idle: 1
+      max-active: 20
+      test-on-borrow: true
+      # MySQL 8.x: com.mysql.cj.jdbc.Driver
+      driver-class-name: com.mysql.jdbc.Driver
+
+#tk-Mybatis
+mybatis:
+  #实体类的存放路径
+  type-aliases-package: com.aishang.shopback_1908.po
+  mapper-locations: classpath:mapper/*.xml
+  # spring boot集成mybatis的方式打印sql
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
