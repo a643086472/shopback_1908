@@ -5,11 +5,11 @@ import javax.persistence.*;
 @Table(name = "shop..orderitem")
 public class Orderitem {
     @Id
-    private Integer itemid;
+    private Integer itemId;
 
     private Integer count;
 
-    private Double subtotal;
+    private Double subTotal;
 
     private Integer pid;
 
@@ -19,14 +19,14 @@ public class Orderitem {
      * @return itemid
      */
     public Integer getItemid() {
-        return itemid;
+        return itemId;
     }
 
     /**
      * @param itemid
      */
     public void setItemid(Integer itemid) {
-        this.itemid = itemid;
+        this.itemId = itemid;
     }
 
     /**
@@ -47,14 +47,14 @@ public class Orderitem {
      * @return subtotal
      */
     public Double getSubtotal() {
-        return subtotal;
+        return subTotal;
     }
 
     /**
      * @param subtotal
      */
     public void setSubtotal(Double subtotal) {
-        this.subtotal = subtotal;
+        this.subTotal = subtotal;
     }
 
     /**

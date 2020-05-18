@@ -10,7 +10,7 @@ public class Orders {
 
     private Double total;
 
-    private Date ordertime;
+    private Date orderTime;
 
     private Integer state;
 
@@ -54,14 +54,14 @@ public class Orders {
      * @return ordertime
      */
     public Date getOrdertime() {
-        return ordertime;
+        return orderTime;
     }
 
     /**
      * @param ordertime
      */
     public void setOrdertime(Date ordertime) {
-        this.ordertime = ordertime;
+        this.orderTime = ordertime;
     }
 
     /**

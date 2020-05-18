@@ -1,17 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.aishang.shopback_1908.dao.OrdersMapper">
-  <resultMap id="BaseResultMap" type="com.aishang.shopback_1908.po.Orders">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="oid" jdbcType="INTEGER" property="oid" />
-    <result column="total" jdbcType="DOUBLE" property="total" />
-    <result column="ordertime" jdbcType="TIMESTAMP" property="ordertime" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="addr" jdbcType="VARCHAR" property="addr" />
-    <result column="uid" jdbcType="INTEGER" property="uid" />
+  <resultMap id="orderExtMap" type="OrderExt">
+    <id column="oid" property="oid"></id>
+    <result column="total" property="total"></result>
+    <result column="ordertime" property="orderTime"></result>
+    <result column="state" property="state"></result>
+    <result column="name" property="name"></result>
+    <result column="phone" property="phone"></result>
+    <result column="addr" property="addr"></result>
+    <result column="uid" property="uid"></result>
+    <collection property="orderItems" ofType="OrderItemExt">
+      <id column="itemid" property="itemId"></id>
+      <result column="count" property="count"></result>
+      <result column="subtotal" property="subTotal"></result>
+      <result column="pid" property="pid"></result>
+      <result column="oid" property="oid"></result>
+      <association property="product" javaType="Product">
+        <id column="pid" property="pid"></id>
+        <result column="pname" property="pname"></result>
+        <result column="market_price" property="marketPrice"></result>
+        <result column="shop_price" property="shopPrice"></result>
+        <result column="image" property="image"></result>
+        <result column="pdesc" property="pdesc"></result>
+        <result column="is_hot" property="isHot"></result>
+        <result column="pdate" property="pdate"></result>
+        <result column="csid" property="csid"></result>
+      </association>
+    </collection>
   </resultMap>
+
+  <!--查询全部订单-->
+  <select id="getAllOrders" parameterType="orderPage"  resultType="OrderExt">
+       select * from orders  order by ordertime desc
+    </select>
+
+
+  <!--查询未付款订单-->
+  <select id="getNotPayOrders" parameterType="orderPage"  resultMap="orderExtMap">
+        select * from orders  where state = 0 order by ordertime desc
+
+    </select>
+    <!--查询未发货订单-->
+    <select id="unshippedOrders" parameterType="orderPage"  resultMap="orderExtMap">
+        select * from orders  where state = 1 order by ordertime desc
+    </select>
+
+    <!--查询已发货订单-->
+    <select id="getShippedOrders" parameterType="orderPage"  resultMap="orderExtMap">
+        select * from orders  where state = 2 order by ordertime desc
+
+    </select>
+
+    <!--查询已收货订单-->
+    <select id="getReGoodsOrders" parameterType="orderPage"  resultMap="orderExtMap">
+        select * from orders  where state = 3 order by ordertime desc
+    </select>
+
+    <!--获取订单详情-->
+    <select id="getOrderDetail" parameterType="Integer"  resultMap="orderExtMap">
+        select * from(select * from orders  where oid = #{oid}) orders
+        inner join orderitem
+        on orders.oid=orderitem.oid
+        inner join product
+        on orderitem.pid=product.pid
+    </select>
+
 </mapper>

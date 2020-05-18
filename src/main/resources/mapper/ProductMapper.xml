@@ -14,5 +14,25 @@
     <result column="is_hot" jdbcType="INTEGER" property="isHot" />
     <result column="pdate" jdbcType="TIMESTAMP" property="pdate" />
     <result column="csid" jdbcType="INTEGER" property="csid" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
   </resultMap>
+
+  <!--查询商品集合-->
+  <select id="getAllProducts" parameterType="ProductExt"  resultMap="BaseResultMap">
+      select product.* from product
+      inner join categorysecond
+      on product.csid=categorysecond.csid
+      <where>
+        <if test="cid!=null">
+          and categorysecond.cid=#{cid}
+        </if>
+        <if test="csid!=null">
+          and categorysecond.csid=#{csid}
+        </if>
+        <if test="pname!=null">
+          and pname like "%"#{pname}"%"
+        </if>
+      </where>
+      order by pdate desc
+  </select>
 </mapper>

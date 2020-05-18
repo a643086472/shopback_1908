@@ -1,4 +1,4 @@
-#Êý¾Ý¿â
+#ï¿½ï¿½ï¿½Ý¿ï¿½
 spring:
   datasource:
     druid:
@@ -12,11 +12,18 @@ spring:
       # MySQL 8.x: com.mysql.cj.jdbc.Driver
       driver-class-name: com.mysql.jdbc.Driver
 
+server:
+  port: 8081
+
 #tk-Mybatis
 mybatis:
-  #ÊµÌåÀàµÄ´æ·ÅÂ·¾¶
+  #Êµï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½Â·ï¿½ï¿½
   type-aliases-package: com.aishang.shopback_1908.po
   mapper-locations: classpath:mapper/*.xml
-  # spring boot¼¯³ÉmybatisµÄ·½Ê½´òÓ¡sql
+  # spring bootï¿½ï¿½ï¿½ï¿½mybatisï¿½Ä·ï¿½Ê½ï¿½ï¿½Ó¡sql
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+file:
+  staticAccessPath: /upload/**
+  uploadFolder: E:/shop/src/main/webapp/upload/
